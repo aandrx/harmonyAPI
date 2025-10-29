@@ -1,4 +1,4 @@
-Groq-Powered HCP Engagement API
+Groq-Powered harmonyAPI
 =================================
 
 [![Issues](https://img.shields.io/github/issues/aandrx/hcp-engagement-api.svg)](https://github.com/aandrx/hcp-engagement-api/issues)
