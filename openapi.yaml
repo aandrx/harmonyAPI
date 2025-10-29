@@ -1,20 +1,20 @@
 openapi: 3.0.3
 info:
-  title: Groq-Powered HCP Engagement API
-  description: Healthcare Provider engagement API with Groq AI-powered literature analysis
+  title: HarmonyAPI - Groq-Powered Healthcare Platform
+  description: AI-powered healthcare provider engagement API with Groq LLM integration for medical literature analysis, risk prediction, and population health analytics
   version: "2.2"
   contact:
     name: API Support
-    url: https://github.com/aandrx/hcp-engagement-api
+    url: https://github.com/aandrx/harmonyAPI
   license:
     name: MIT
-    url: https://github.com/aandrx/hcp-engagement-api/blob/main/LICENSE
+    url: https://github.com/aandrx/harmonyAPI/blob/main/LICENSE
 
 servers:
   - url: http://localhost:5000
     description: Development server
-  - url: https://your-api-domain.com
-    description: Production server
+  - url: https://hcp-engagement-api.onrender.com
+    description: Production server (Render)
 
 security:
   - BearerAuth: []

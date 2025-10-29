@@ -1,14 +1,14 @@
 Groq-Powered harmonyAPI
 =================================
 
-[![Issues](https://img.shields.io/github/issues/aandrx/hcp-engagement-api.svg)](https://github.com/aandrx/hcp-engagement-api/issues)
-[![API Version](https://img.shields.io/badge/version-2.2-blue.svg)](https://github.com/aandrx/hcp-engagement-api)
+[![Issues](https://img.shields.io/github/issues/aandrx/harmonyAPI.svg)](https://github.com/aandrx/harmonyAPI/issues)
+[![API Version](https://img.shields.io/badge/version-2.2-blue.svg)](https://github.com/aandrx/harmonyAPI)
 [![Python](https://img.shields.io/badge/python-3.8+-green.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/flask-2.3.3-orange.svg)](https://flask.palletsprojects.com)
 [![Groq AI](https://img.shields.io/badge/AI-Groq%20Powered-purple.svg)](https://groq.com)
 
 #### created for HackGT 12
-#### build the demo here: [demo repo](https://github.com/aandrx/demo-hcp-engagement-api)
+#### build the demo here: [demo repo](https://github.com/aandrx/demo-harmonyAPI)
 
 ## Description:
 
@@ -233,8 +233,8 @@ Response
 ### Installation
 
 ```bash
-git clone https://github.com/aandrx/hcp-engagement-api.git
-cd hcp-engagement-api
+git clone https://github.com/aandrx/harmonyAPI.git
+cd harmonyAPI
 pip install -r requirements.txt
 ```
 
