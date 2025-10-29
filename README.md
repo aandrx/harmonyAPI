@@ -212,12 +212,12 @@ Response
 
 <div align="center">
   <p>
-    <a href="https://aandrx.github.io/hcp-engagement-api/#/">
+    <a href="https://aandrx.github.io/harmonyAPI/#/">
       <img width="200" height="52" src="https://img.shields.io/badge/Swagger_API_Docs-85EA2D.svg?logo=swagger&logoColor=black&style=for-the-badge" />
     </a>
   </p>
   <p>
-    <a href="https://aandrx.github.io/hcp-engagement-api/health.html">
+    <a href="https://aandrx.github.io/harmonyAPI/health.html">
       <img width="200" height="52" src="https://img.shields.io/badge/Health_Check-00D9FF.svg?logo=statuspage&logoColor=white&style=for-the-badge" />
     </a>
   </p>

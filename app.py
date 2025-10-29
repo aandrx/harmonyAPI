@@ -50,7 +50,7 @@ CORS(app,
         "http://127.0.0.1:3000", 
         "http://localhost:5173", 
         "http://localhost:5002",
-        "https://aandrx.github.io"  # GitHub Pages
+        "https://aandrx.github.io"  # GitHub Pages (harmonyAPI)
     ],
     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type", "X-Requested-With", "Origin", "Accept"],
