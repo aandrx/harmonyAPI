@@ -20,4 +20,4 @@ services:
         sync: false  # This needs to be set manually in Render dashboard
       - key: REDIS_URL
         value: redis://localhost:6379/0  # Will be updated if Redis is added
-    autoDeploy: true
+    autoDeploy: false  # Changed to false to prevent excessive auto-deploy commits
