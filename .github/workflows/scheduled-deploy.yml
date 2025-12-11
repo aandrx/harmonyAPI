@@ -1,0 +1,64 @@
+name: Scheduled Render Deployment
+
+on:
+  schedule:
+    # Morning deployment: 6-12am PST (14-20 UTC)
+    - cron: '30 14 * * *'  # Base: 6:30am PST
+    # Afternoon deployment: 1-6pm PST (21-02 UTC)  
+    - cron: '15 21 * * *'  # Base: 1:15pm PST
+  workflow_dispatch:  # Allow manual triggers
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Add random delay (0-60 minutes)
+        run: |
+          DELAY=$((RANDOM % 3600))
+          MINUTES=$((DELAY / 60))
+          echo "⏰ Randomizing deployment time by ${MINUTES} minutes..."
+          sleep $DELAY
+      
+      - name: Trigger Render deployment
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          if [ -z "$RENDER_API_KEY" ] || [ -z "$RENDER_SERVICE_ID" ]; then
+            echo "⚠️  Render credentials not configured. Skipping deployment."
+            echo "💡 Add RENDER_API_KEY and RENDER_SERVICE_ID to GitHub Secrets to enable."
+            exit 0
+          fi
+          
+          echo "🚀 Triggering Render deployment..."
+          curl -X POST \
+            "https://api.render.com/v1/services/${RENDER_SERVICE_ID}/deploys" \
+            -H "Authorization: Bearer ${RENDER_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": false}'
+          
+          echo "✅ Deployment triggered successfully!"
+      
+      - name: Commit deployment record
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Create deployment log
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          echo "Scheduled deployment: ${TIMESTAMP}" >> .deployment-log
+          
+          # Only commit if there are actual code changes
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "📝 No code changes to commit"
+          else
+            git add .deployment-log
+            git commit -m "Scheduled deployment: ${TIMESTAMP}"
+            git push
+            echo "✅ Deployment record committed"
+          fi
