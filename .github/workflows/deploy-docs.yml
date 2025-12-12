@@ -29,24 +29,33 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
     steps:
-      - name: Checkout
+      - name: Checkout main branch
         uses: actions/checkout@v4
+        with:
+          ref: main
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-deploy
+
+      - name: Copy documentation files to gh-pages
+        run: |
+          cp index.html gh-pages-deploy/
+          cp openapi.yaml gh-pages-deploy/
+          cp health.html gh-pages-deploy/ || true
+          cp verify_status/health.html gh-pages-deploy/ || true
 
       - name: Create status directory
         run: |
-          mkdir -p status
+          mkdir -p gh-pages-deploy/status
           echo "Status directory created for health monitoring data"
 
       - name: Generate API info page
         run: |
+          cd gh-pages-deploy
           echo '<!DOCTYPE html>' > api-info.html
           echo '<html lang="en"><head>' >> api-info.html
           echo '<meta charset="UTF-8">' >> api-info.html
@@ -65,12 +74,13 @@ jobs:
           echo '<a href="./index.html" class="api-link">API Documentation</a>' >> api-info.html
           echo '<a href="./health.html" class="api-link">Health Monitor</a></div>' >> api-info.html
           echo '</body></html>' >> api-info.html
+          cd ..
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Commit and push to gh-pages
+        run: |
+          cd gh-pages-deploy
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git diff --quiet && git diff --staged --quiet || git commit -m "Deploy documentation from main branch"
+          git push origin gh-pages
