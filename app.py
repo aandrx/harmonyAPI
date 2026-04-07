@@ -20,6 +20,10 @@ import numpy as np
 # Load environment variables from .env file
 load_dotenv()
 
+# Track server start time for uptime reporting
+SERVER_START_TIME = datetime.utcnow()
+SERVER_PORT = int(os.getenv('PORT', 5000))
+
 app = Flask(__name__)
 
 # Configuration for open-source deployment
@@ -135,6 +139,7 @@ api = Api(app,
     title='Groq-Powered HCP Engagement API', 
     description='Healthcare Provider engagement API with Groq AI-powered literature analysis',
     doc='/docs/',
+    host=f'localhost:{SERVER_PORT}',
     catch_all_404s=False,  # Allow Flask routes to handle unmatched routes
     authorizations={
         'Bearer Auth': {
@@ -1315,17 +1320,31 @@ class AIModels(Resource):
 # Enhanced health endpoint
 @app.route('/health')
 def health():
-    """Health check endpoint with Groq status"""
+    """Health check endpoint with uptime and server info"""
+    now = datetime.utcnow()
+    uptime_seconds = (now - SERVER_START_TIME).total_seconds()
+    uptime_hours = int(uptime_seconds // 3600)
+    uptime_minutes = int((uptime_seconds % 3600) // 60)
+    uptime_secs = int(uptime_seconds % 60)
+
     return {
         'status': 'healthy',
         'version': '2.2',
-        'timestamp': datetime.utcnow().isoformat(),
+        'timestamp': now.isoformat(),
+        'server': {
+            'host': f'localhost:{SERVER_PORT}',
+            'port': SERVER_PORT,
+            'started_at': SERVER_START_TIME.isoformat(),
+            'uptime': f'{uptime_hours}h {uptime_minutes}m {uptime_secs}s',
+            'uptime_seconds': round(uptime_seconds, 1),
+            'docs_url': f'http://localhost:{SERVER_PORT}/docs/'
+        },
         'services': {
             'authentication': 'active',
             'literature_search': 'active',
             'analytics': 'active',
-            'real_time': 'active',
-            'ai_analysis': 'active'
+            'real_time': 'active' if socketio else 'disabled',
+            'ai_analysis': 'active' if ai_service.groq_available else 'fallback'
         },
         'groq_integration': {
             'available': ai_service.groq_available,

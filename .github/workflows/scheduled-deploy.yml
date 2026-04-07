@@ -41,21 +41,7 @@ jobs:
           
           echo "Deployment triggered successfully!"
       
-      - name: Commit deployment record
+      - name: Log deployment
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          
-          # Create deployment log
           TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
-          echo "Scheduled deployment: ${TIMESTAMP}" >> .deployment-log
-          
-          # Only commit if there are actual code changes
-          if git diff --quiet && git diff --staged --quiet; then
-            echo "No code changes to commit"
-          else
-            git add .deployment-log
-            git commit -m "Scheduled deployment: ${TIMESTAMP}"
-            git push
-            echo "Deployment record committed"
-          fi
+          echo "Deployment triggered at ${TIMESTAMP}"
