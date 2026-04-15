@@ -1,9 +1,6 @@
 name: API Health Check
 
 on:
-  schedule:
-    # Run every 30 minutes
-    - cron: '*/30 * * * *'
   workflow_dispatch:
   push:
     branches: [main]

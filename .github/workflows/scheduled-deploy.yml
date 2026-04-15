@@ -1,16 +1,7 @@
 name: Scheduled Render Deployment
 
 on:
-  schedule:
-    # Morning deployment: Random times between 6-12am PST
-    - cron: '15 14 * * *'  # 6:15am PST (14:15 UTC)
-    - cron: '45 16 * * *'  # 8:45am PST (16:45 UTC)
-    - cron: '30 19 * * *'  # 11:30am PST (19:30 UTC)
-    # Afternoon deployment: Random times between 1-6pm PST
-    - cron: '20 21 * * *'  # 1:20pm PST (21:20 UTC)
-    - cron: '50 23 * * *'  # 3:50pm PST (23:50 UTC)
-    - cron: '25 01 * * *'  # 5:25pm PST (01:25 UTC next day)
-  workflow_dispatch:  # Allow manual triggers
+  workflow_dispatch:  # Manual trigger only
 
 jobs:
   deploy:
