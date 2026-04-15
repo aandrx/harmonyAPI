@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-04-15T20:12:46Z",
+  "overall_status": "unhealthy",
+  "documentation": {
+    "status": "healthy",
+    "url": "https://aandrx.github.io/harmonyAPI/",
+    "openapi_url": "https://aandrx.github.io/harmonyAPI/openapi.yaml"
+  },
+  "health_page": {
+    "status": "healthy",
+    "url": "https://aandrx.github.io/harmonyAPI/health.html"
+  },
+  "render_deployment": {
+    "status": "unhealthy",
+    "url": "https://hcp-engagement-api.onrender.com",
+    "api_health": "unreachable",
+    "groq_integration": "unknown",
+    "documentation": "unknown",
+    "last_checked": "2026-04-15T20:12:46Z",
+    "authentication_test": "skipped",
+    "endpoints": {
+      "health": "https://hcp-engagement-api.onrender.com/health",
+      "docs": "https://hcp-engagement-api.onrender.com/docs",
+      "auth": "https://hcp-engagement-api.onrender.com/auth/login"
+    }
+  },
+  "production": {
+    "status": "deployed",
+    "message": "API deployed and monitored on Render"
+  },
+  "services": {
+    "authentication": "ready",
+    "literature_search": "ready", 
+    "ai_analysis": "ready",
+    "analytics": "ready"
+  },
+  "deployment_options": [
+    "Heroku",
+    "Render", 
+    "Railway",
+    "Azure Container Apps",
+    "AWS App Runner"
+  ]
+}
